@@ -31,7 +31,7 @@ export default async function handler(req, res) {
                 nis: siswa.c[2]?.v || "",
                 nisn: siswa.c[3]?.v || "",
                 kelas: siswa.c[5]?.v || "-",
-                nilai: siswa.c[6]?.v || "-",
+                nilai: typeof siswa.c[6]?.v === 'number' ? Math.round(siswa.c[6].v * 100) / 100 : (siswa.c[6]?.v || "-"),
                 status: siswa.c[7]?.v || ""
             });
         } else {
