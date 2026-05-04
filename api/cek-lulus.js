@@ -3,6 +3,12 @@ export default async function handler(req, res) {
     const { keyword } = req.query; // Mengambil NIS/NISN yang diketik siswa
     const SPREADSHEET_ID = process.env.SPREADSHEET_ID; // MENGAMBIL DARI BRANKAS VERCEL
 
+    // PENGUNCI WAKTU (4 Mei 2026, 22:00 WIB)
+    const TARGET_TIME = new Date("2026-05-04T22:00:00+07:00");
+    if (new Date() < TARGET_TIME) {
+        return res.status(403).json({ error: "Pengumuman belum dibuka. Silakan tunggu hingga pukul 22:00 WIB." });
+    }
+
     if (!keyword) {
         return res.status(400).json({ error: "NIS/NISN diperlukan" });
     }
