@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan Siswa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Card Utama -->
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-gray-100">
+
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-center text-white">
+            <i class="fas fa-graduation-cap text-5xl mb-3"></i>
+            <h1 class="text-2xl font-bold">Pengumuman Kelulusan</h1>
+            <p class="text-blue-100 text-sm mt-1">Tahun Ajaran 2025/2026</p>
+        </div>
+
+        <!-- Form Pencarian -->
+        <div class="p-6 md:p-8" id="search-section">
+            <p class="text-gray-600 text-center mb-6 text-sm md:text-base">
+                Silakan masukkan <strong>NISN</strong> atau <strong>NIS</strong> Anda pada kolom di bawah ini untuk
+                melihat status kelulusan.
+            </p>
+
+            <form id="search-form" class="space-y-4">
+                <div>
+                    <label for="nisnInput" class="block text-sm font-medium text-gray-700 mb-1">Nomor Induk Siswa
+                        (NIS/NISN)</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-400"></i>
+                        </div>
+                        <input type="text" id="nisnInput"
+                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                            placeholder="Contoh: 0012345678" required autocomplete="off">
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-cek"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200">
+                    <span>Cek Hasil</span>
+                </button>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="hidden mt-6 text-center text-gray-500">
+                <i class="fas fa-circle-notch fa-spin text-3xl text-blue-600"></i>
+                <p class="mt-3 text-sm font-medium">Sedang menarik data dari database...</p>
+            </div>
+        </div>
+
+        <!-- Bagian Hasil (Hidden by default) -->
+        <div id="result-section" class="hidden p-6 md:p-8 border-t border-gray-100 bg-gray-50 text-center fade-in">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Biodata Siswa</h2>
+
+            <div class="bg-white p-4 rounded-lg shadow-inner border border-gray-200 mb-6 text-left">
+                <!-- Data Nama -->
+                <div class="grid grid-cols-3 gap-2 text-sm md:text-base mb-2 pb-2 border-b border-gray-100">
+                    <span class="text-gray-500 col-span-1">Nama</span>
+                    <span class="font-semibold text-gray-900 col-span-2" id="res-nama">: -</span>
+                </div>
+                <!-- Data NIS/NISN -->
+                <div class="grid grid-cols-3 gap-2 text-sm md:text-base mb-2 pb-2 border-b border-gray-100">
+                    <span class="text-gray-500 col-span-1">NIS / NISN</span>
+                    <span class="font-semibold text-gray-900 col-span-2" id="res-nisn">: -</span>
+                </div>
+                <!-- Data Kelas -->
+                <div class="grid grid-cols-3 gap-2 text-sm md:text-base mb-2 pb-2 border-b border-gray-100">
+                    <span class="text-gray-500 col-span-1">Kelas</span>
+                    <span class="font-semibold text-gray-900 col-span-2" id="res-kelas">: -</span>
+                </div>
+                <!-- Data Nilai -->
+                <div class="grid grid-cols-3 gap-2 text-sm md:text-base mb-1">
+                    <span class="text-gray-500 col-span-1">Nilai Akhir</span>
+                    <span class="font-semibold text-gray-900 col-span-2" id="res-nilai">: -</span>
+                </div>
+            </div>
+
+            <!-- Box Status Lulus / Tidak Lulus -->
+            <div id="status-box" class="py-4 px-6 rounded-lg font-bold text-xl md:text-2xl shadow-sm border mt-4">
+                <!-- Status akan diisi oleh JavaScript -->
+            </div>
+
+            <button type="button" id="btn-kembali"
+                class="mt-6 text-blue-600 hover:text-blue-800 text-sm font-medium underline">
+                Cek Siswa Lain
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Peringatan Error -->
+    <div id="error-msg"
+        class="hidden mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full max-w-lg text-sm text-center fade-in">
+        <i class="fas fa-exclamation-circle mr-1"></i> Data siswa tidak ditemukan. Periksa kembali NIS/NISN.
+    </div>
+
+    <footer class="mt-8 text-center text-gray-500 text-xs">
+        &copy; 2026 Sistem Informasi Kelulusan <br> Terhubung dengan Google Sheets
+    </footer>
+
+    <script>
+        // =========================================================================
+        // PENGATURAN GOOGLE SHEETS
+        // Ganti teks di bawah ini dengan ID Google Sheets Bapak/Ibu.
+        // =========================================================================
+        const SPREADSHEET_ID = "MASUKKAN_ID_SPREADSHEET_DISINI";
+        // =========================================================================
+
+        const form = document.getElementById('search-form');
+        const inputNISN = document.getElementById('nisnInput');
+        const btnCek = document.getElementById('btn-cek');
+        const loading = document.getElementById('loading');
+        const resultSection = document.getElementById('result-section');
+        const errorMsg = document.getElementById('error-msg');
+        const btnKembali = document.getElementById('btn-kembali');
+
+        // Elemen HTML Hasil
+        const resNama = document.getElementById('res-nama');
+        const resNisn = document.getElementById('res-nisn');
+        const resKelas = document.getElementById('res-kelas');
+        const resNilai = document.getElementById('res-nilai');
+        const statusBox = document.getElementById('status-box');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const keyword = inputNISN.value.trim().toLowerCase();
+
+            // Validasi: Jangan izinkan mencari teks judul kolom
+            if (keyword === "nis" || keyword === "nisn") {
+                tampilkanError('<i class="fas fa-exclamation-circle mr-1"></i> Silakan masukkan angka NIS/NISN yang valid.');
+                return;
+            }
+
+            // Reset tampilan ke mode loading
+            errorMsg.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            btnCek.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            try {
+                // Mengambil data dari Google Sheets
+                const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+                const response = await fetch(url);
+                const text = await response.text();
+
+                // Parse respon Google JSON
+                const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                const json = JSON.parse(jsonString);
+
+                // MENGUBAH DATA SHEET SESUAI URUTAN KOLOM BAPAK/IBU (A-H)
+                // Memfilter baris kosong dan memastikan kolom tidak null
+                const databaseSiswa = json.table.rows.map(row => {
+                    return {
+                        // row.c[1] = Kolom B (NAMA)
+                        nama: row.c[1] && row.c[1].v ? String(row.c[1].v) : "",
+                        // row.c[2] = Kolom C (NIS)
+                        nis: row.c[2] && row.c[2].v ? String(row.c[2].v) : "",
+                        // row.c[3] = Kolom D (NISN)
+                        nisn: row.c[3] && row.c[3].v ? String(row.c[3].v) : "",
+                        // row.c[5] = Kolom F (KELAS)
+                        kelas: row.c[5] && row.c[5].v ? String(row.c[5].v) : "-",
+                        // row.c[6] = Kolom G (NILAI AKHIR)
+                        nilai: row.c[6] && row.c[6].v ? String(row.c[6].v) : "-",
+                        // row.c[7] = Kolom H (KETERANGAN)
+                        status: row.c[7] && row.c[7].v ? String(row.c[7].v) : ""
+                    };
+                });
+
+                // Proses Pencarian Data
+                // Mencari dari array databaseSiswa, hanya cocokkan dengan NIS / NISN
+                const siswaDitemukan = databaseSiswa.find(
+                    siswa => siswa.nis.toLowerCase() === keyword || siswa.nisn.toLowerCase() === keyword
+                );
+
+                // Matikan loading
+                loading.classList.add('hidden');
+                btnCek.classList.remove('hidden');
+
+                if (siswaDitemukan && siswaDitemukan.status !== "") {
+                    // Tampilkan Biodata
+                    resNama.innerText = `: ${siswaDitemukan.nama}`;
+                    resNisn.innerText = `: ${siswaDitemukan.nis} / ${siswaDitemukan.nisn}`;
+                    resKelas.innerText = `: ${siswaDitemukan.kelas}`;
+                    resNilai.innerText = `: ${siswaDitemukan.nilai}`;
+
+                    // Tampilkan Status Kelulusan dengan warna berbeda
+                    if (siswaDitemukan.status.toUpperCase().includes("TIDAK")) {
+                        // Jika Tidak Lulus (Merah)
+                        statusBox.innerText = "MOHON MAAF, ANDA TIDAK LULUS";
+                        statusBox.className = "py-4 px-6 rounded-lg font-bold text-xl md:text-2xl shadow-sm border mt-4 bg-red-100 border-red-500 text-red-700";
+                    } else if (siswaDitemukan.status.toUpperCase().includes("LULUS")) {
+                        // Jika Lulus (Hijau)
+                        statusBox.innerText = "SELAMAT! ANDA LULUS";
+                        statusBox.className = "py-4 px-6 rounded-lg font-bold text-xl md:text-2xl shadow-sm border mt-4 bg-green-100 border-green-500 text-green-700";
+                    } else {
+                        // Status kosong / belum diisi
+                        statusBox.innerText = "STATUS BELUM DITENTUKAN";
+                        statusBox.className = "py-4 px-6 rounded-lg font-bold text-xl md:text-2xl shadow-sm border mt-4 bg-gray-100 border-gray-500 text-gray-700";
+                    }
+
+                    resultSection.classList.remove('hidden');
+                    inputNISN.value = "";
+                } else {
+                    tampilkanError('<i class="fas fa-exclamation-circle mr-1"></i> Data siswa tidak ditemukan atau belum dinilai. Periksa kembali NIS/NISN.');
+                }
+
+            } catch (error) {
+                loading.classList.add('hidden');
+                btnCek.classList.remove('hidden');
+                tampilkanError('<i class="fas fa-times-circle mr-1"></i> <b>Koneksi ke Database Gagal!</b><br>Pastikan ID Sheet benar dan hak akses sheet "Siapa saja yang memiliki link".');
+                console.error("Error Google Sheets:", error);
+            }
+        });
+
+        // Fungsi khusus untuk menampilkan pesan error
+        function tampilkanError(pesan) {
+            errorMsg.innerHTML = pesan;
+            errorMsg.classList.remove('hidden');
+        }
+
+        btnKembali.addEventListener('click', function () {
+            resultSection.classList.add('hidden');
+            inputNISN.focus();
+        });
+    </script>
+</body>
+
+</html>
