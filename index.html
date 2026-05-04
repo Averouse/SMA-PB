@@ -4,18 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengumuman Kelulusan Siswa | SMA PB</title>
+    <title>Pengumuman Kelulusan | SMA Negeri 1 Pangkalan Banteng</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/SMAPB Logo.png">
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Sistem Informasi Kelulusan Siswa SMA PB. Masukkan NIS/NISN untuk melihat status kelulusan Anda secara resmi.">
+    <meta name="description"
+        content="Sistem Informasi Kelulusan Siswa SMA Negeri 1 Pangkalan Banteng. Masukkan NIS/NISN untuk melihat status kelulusan Anda secara resmi.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            --primary: #1e40af;
+            --primary-hover: #1e3a8a;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #dbeafe 100%);
         }
 
         body {
@@ -35,52 +38,75 @@
             border-radius: 50%;
         }
 
-        .blob-1 { width: 400px; height: 400px; background: #3b82f6; top: -100px; right: -100px; }
-        .blob-2 { width: 300px; height: 300px; background: #60a5fa; bottom: -50px; left: -50px; }
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: #3b82f6;
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: #60a5fa;
+            bottom: -50px;
+            left: -50px;
+        }
 
         /* Glassmorphism Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            box-shadow: 0 10px 40px -10px rgba(30, 64, 175, 0.15);
         }
 
         .btn-gradient {
-            background: linear-gradient(to right, #2563eb, #3b82f6);
+            background: linear-gradient(to right, #1e40af, #3b82f6);
             transition: all 0.3s ease;
         }
 
         .btn-gradient:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.25);
         }
 
         /* Animations */
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .animate-slide-up {
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .pulse-loader {
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.7; }
-        }
-
         /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 
@@ -91,109 +117,148 @@
     <main class="w-full max-w-lg animate-slide-up">
         <!-- Logo / Brand Section -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl shadow-lg mb-4 text-white">
-                <i class="fas fa-graduation-cap text-3xl"></i>
+            <div class="flex justify-center mb-6">
+                <div
+                    class="inline-flex items-center justify-center h-20 w-auto bg-white/50 px-4 py-2 rounded-2xl backdrop-blur-sm border border-white/20">
+                    <img src="assets/SMAPB Logo.png" alt="Logo SMA PB" class="h-full w-auto object-contain">
+                </div>
             </div>
-            <h1 class="text-3xl font-bold tracking-tight text-slate-900">SMA PLUS BANGSA</h1>
-            <p class="text-slate-500 font-medium">Sistem Pengumuman Kelulusan 2026</p>
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                SMA NEGERI 1 <br> PANGKALAN BANTENG
+            </h1>
         </div>
 
         <!-- Main Container -->
-        <div class="glass-card rounded-3xl overflow-hidden">
-            
+        <div class="glass-card rounded-[2.5rem] overflow-hidden">
+
             <!-- Search Section -->
-            <div id="search-section" class="p-8">
-                <div class="mb-6 text-center">
-                    <h2 class="text-xl font-semibold text-slate-800">Cek Status Anda</h2>
-                    <p class="text-slate-500 text-sm mt-1">Masukkan Nomor Induk Siswa (NIS/NISN)</p>
+            <div id="search-section" class="p-8 md:p-10">
+                <div class="mb-8 text-center">
+                    <h2 class="text-xl font-bold text-slate-800">Cek Status Kelulusan</h2>
+                    <p class="text-slate-500 text-sm mt-2">Silakan masukkan NIS atau NISN Anda</p>
                 </div>
 
-                <form id="search-form" class="space-y-5">
+                <form id="search-form" class="space-y-6">
                     <div class="relative group">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-slate-400 group-focus-within:text-blue-500 transition-colors"></i>
+                        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <i
+                                class="fas fa-id-badge text-slate-400 group-focus-within:text-blue-600 transition-colors"></i>
                         </div>
-                        <input type="text" id="nisnInput" 
-                            class="block w-full pl-11 pr-4 py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700 font-medium placeholder:text-slate-400"
-                            placeholder="Contoh: 102234xxx" required autocomplete="off">
+                        <input type="text" id="nisnInput"
+                            class="block w-full pl-12 pr-5 py-4.5 bg-white/50 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all text-slate-700 font-bold placeholder:text-slate-400 placeholder:font-medium"
+                            placeholder="Contoh: 006769xxxx" required autocomplete="off">
                     </div>
 
                     <button type="submit" id="btn-cek"
-                        class="btn-gradient w-full py-4 rounded-2xl text-white font-bold shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
-                        Cek Kelulusan Sekarang
+                        class="btn-gradient w-full py-4.5 rounded-2xl text-white font-bold text-lg shadow-lg shadow-blue-600/20 active:scale-[0.98] transition-all">
+                        Cek Sekarang
                     </button>
                 </form>
 
                 <!-- Premium Loading Indicator -->
-                <div id="loading" class="hidden mt-10 text-center py-4">
-                    <div class="flex justify-center mb-4">
-                        <div class="relative w-12 h-12">
+                <div id="loading" class="hidden mt-12 text-center py-4">
+                    <div class="flex justify-center mb-5">
+                        <div class="relative w-14 h-14">
                             <div class="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
-                            <div class="absolute inset-0 border-4 border-t-blue-600 rounded-full animate-spin"></div>
+                            <div class="absolute inset-0 border-4 border-t-blue-700 rounded-full animate-spin"></div>
                         </div>
                     </div>
-                    <p class="text-slate-500 font-medium animate-pulse">Menghubungkan ke pusat data...</p>
+                    <p class="text-slate-500 font-bold animate-pulse text-sm">Mencari data di database sekolah...</p>
                 </div>
             </div>
 
             <!-- Result Section -->
             <div id="result-section" class="hidden">
                 <!-- Status Header -->
-                <div id="status-header" class="p-8 text-center text-white">
-                    <div id="status-icon-box" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center bg-white/20 mb-4 backdrop-blur-md">
+                <div id="status-header" class="p-10 text-center text-white">
+                    <div id="status-icon-box"
+                        class="w-20 h-20 mx-auto rounded-full flex items-center justify-center bg-white/20 mb-5 backdrop-blur-md">
                         <i id="status-icon" class="fas fa-check text-4xl"></i>
                     </div>
-                    <h2 id="status-title" class="text-2xl font-bold mb-1">SELAMAT!</h2>
-                    <p id="status-subtitle" class="text-white/80 font-medium">Anda Dinyatakan Lulus</p>
+                    <h2 id="status-title" class="text-2xl font-black mb-1">SELAMAT!</h2>
+                    <p id="status-subtitle" class="text-white/90 font-bold uppercase tracking-widest text-xs">Anda
+                        Dinyatakan Lulus</p>
                 </div>
 
                 <!-- Detailed Info -->
-                <div class="p-8 bg-white/40">
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-slate-200/50">
-                            <span class="text-slate-500 text-sm">Nama Lengkap</span>
-                            <span id="res-nama" class="font-bold text-slate-800 text-right">-</span>
+                <div class="p-8 md:p-10 bg-white/40">
+                    <div class="space-y-5">
+                        <div class="flex flex-col gap-1 pb-4 border-b border-slate-200/60">
+                            <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">Nama Lengkap</span>
+                            <span id="res-nama" class="font-extrabold text-slate-800 text-lg uppercase">-</span>
                         </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-slate-200/50">
-                            <span class="text-slate-500 text-sm">NIS / NISN</span>
-                            <span id="res-nisn" class="font-bold text-slate-800 text-right">-</span>
+                        <div class="grid grid-cols-2 gap-4 pb-4 border-b border-slate-200/60">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">NIS /
+                                    NISN</span>
+                                <span id="res-nisn" class="font-bold text-slate-700">-</span>
+                            </div>
+                            <div class="flex flex-col gap-1 text-right">
+                                <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">Kelas</span>
+                                <span id="res-kelas" class="font-bold text-slate-700">-</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-slate-200/50">
-                            <span class="text-slate-500 text-sm">Kelas</span>
-                            <span id="res-kelas" class="font-bold text-slate-800 text-right">-</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-500 text-sm">Nilai Rata-rata</span>
-                            <span id="res-nilai" class="font-bold text-slate-800 text-right">-</span>
+                        <div class="flex justify-between items-center bg-blue-50/50 p-4 rounded-xl">
+                            <span class="text-blue-600/70 text-xs font-bold uppercase tracking-wider">Nilai
+                                Rata-rata</span>
+                            <span id="res-nilai" class="font-black text-blue-700 text-xl">-</span>
                         </div>
                     </div>
 
+                    <!-- Download SKL Button (Only for Graduated) -->
+                    <div id="skl-container" class="hidden mt-8">
+                        <a href="https://docs.google.com/document/d/1f536omnPbMah1B7fpvSEELg1fUO-o-4M/edit?usp=sharing&ouid=116665670724893789946&rtpof=true&sd=true"
+                            target="_blank"
+                            class="w-full py-4 bg-emerald-600 text-white rounded-2xl font-bold shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-3">
+                            <i class="fas fa-file-download"></i> Unduh Surat Keterangan Lulus
+                        </a>
+                    </div>
+
                     <button type="button" id="btn-kembali"
-                        class="mt-8 w-full py-3 bg-slate-800 text-white rounded-xl font-semibold hover:bg-slate-900 transition-colors flex items-center justify-center gap-2">
-                        <i class="fas fa-arrow-left text-sm"></i> Kembali
+                        class="mt-4 w-full py-3 bg-slate-800 text-white rounded-2xl font-bold text-sm hover:bg-slate-900 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-redo-alt text-xs"></i> Cari Siswa Lain
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Error Message -->
-        <div id="error-msg" class="hidden mt-6 bg-rose-50 border border-rose-100 p-4 rounded-2xl flex items-start gap-3 text-rose-600 shadow-sm animate-slide-up">
-            <i class="fas fa-exclamation-circle mt-1"></i>
+        <div id="error-msg"
+            class="hidden mt-8 bg-rose-50 border-2 border-rose-100 p-5 rounded-[2rem] flex items-start gap-4 text-rose-600 shadow-xl animate-slide-up">
+            <div class="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-times text-rose-600"></i>
+            </div>
             <div>
-                <p class="font-bold text-sm">Data Tidak Ditemukan</p>
-                <p class="text-xs text-rose-500">Silakan periksa kembali NIS/NISN atau hubungi bagian Tata Usaha sekolah.</p>
+                <p class="font-black text-sm uppercase tracking-tight">Data Tidak Ditemukan</p>
+                <p class="text-xs text-rose-500 font-medium mt-1">Periksa kembali nomor yang Anda masukkan atau hubungi
+                    Admin sekolah.</p>
             </div>
         </div>
 
         <!-- Footer -->
-        <footer class="mt-12 text-center">
-            <p class="text-slate-400 text-xs font-medium uppercase tracking-widest">
-                Official Website &copy; 2026 SMA Plus Bangsa
-            </p>
-            <div class="mt-2 flex justify-center gap-4 text-slate-300">
-                <i class="fas fa-shield-alt" title="Secure Database"></i>
-                <i class="fas fa-server" title="High Availability"></i>
-                <i class="fas fa-lock" title="Encrypted Connection"></i>
+        <footer class="mt-16 pb-8 text-center px-4">
+            <div class="text-slate-500 text-xs font-medium space-y-3">
+                <p class="uppercase tracking-[0.2em] font-bold text-slate-400">Hubungi Kami</p>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-2">
+                    <a href="mailto:sman1pangkalanbanteng@gmail.com"
+                        class="hover:text-blue-600 transition-colors flex items-center gap-2">
+                        <i class="fas fa-envelope"></i> sman1pangkalanbanteng@gmail.com
+                    </a>
+                    <a href="https://sman1pangkalanbanteng.sch.id" target="_blank"
+                        class="hover:text-blue-600 transition-colors flex items-center gap-2">
+                        <i class="fas fa-globe"></i> sman1pangkalanbanteng.sch.id
+                    </a>
+                </div>
+                <p class="flex items-center justify-center gap-2">
+                    <i class="fas fa-map-marker-alt text-blue-500"></i>
+                    Jl. Pariwisata 1 Desa Simpang Berambai, Kec. Pangkalan Banteng, Kab. Kotawaringin Barat, Kalteng
+                    74183
+                </p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-slate-200/60">
+                <p class="text-[10px] text-slate-300 font-bold uppercase tracking-[0.3em]">
+                    Copyright &copy; 2026 SMAN 1 Pangkalan Banteng
+                </p>
             </div>
         </footer>
     </main>
@@ -207,6 +272,7 @@
         const errorMsg = document.getElementById('error-msg');
         const btnKembali = document.getElementById('btn-kembali');
         const btnCek = document.getElementById('btn-cek');
+        const sklContainer = document.getElementById('skl-container');
 
         // Result Elements
         const resNama = document.getElementById('res-nama');
@@ -228,16 +294,14 @@
             loading.classList.remove('hidden');
 
             try {
-                // MEMANGGIL API BACKEND (BUKAN GOOGLE SHEETS LANGSUNG)
                 const response = await fetch(`/api/cek-lulus?keyword=${encodeURIComponent(keyword)}`);
-                
+
                 if (!response.ok) {
                     throw new Error('Not Found');
                 }
 
                 const data = await response.json();
 
-                // Delay sedikit untuk efek loading yang elegan
                 setTimeout(() => {
                     loading.classList.add('hidden');
                     searchSection.classList.add('hidden');
@@ -252,17 +316,19 @@
                     // Pengaturan Warna Berdasarkan Status
                     const statusStr = data.status.toUpperCase();
                     if (statusStr.includes("TIDAK")) {
-                        statusHeader.className = "p-8 text-center text-white bg-rose-600";
-                        statusIcon.className = "fas fa-times text-4xl";
+                        statusHeader.className = "p-10 text-center text-white bg-rose-600";
+                        statusIcon.className = "fas fa-times-circle text-4xl";
                         statusTitle.innerText = "MOHON MAAF";
                         statusSubtitle.innerText = "Anda Dinyatakan Tidak Lulus";
+                        sklContainer.classList.add('hidden');
                     } else {
-                        statusHeader.className = "p-8 text-center text-white bg-emerald-600";
-                        statusIcon.className = "fas fa-check text-4xl";
+                        statusHeader.className = "p-10 text-center text-white bg-blue-700";
+                        statusIcon.className = "fas fa-award text-4xl";
                         statusTitle.innerText = "SELAMAT!";
                         statusSubtitle.innerText = "Anda Dinyatakan Lulus";
+                        sklContainer.classList.remove('hidden');
                     }
-                }, 800);
+                }, 1000);
 
             } catch (error) {
                 loading.classList.add('hidden');
@@ -281,4 +347,4 @@
     </script>
 </body>
 
-</html>
+</html>
